@@ -1,12 +1,15 @@
-import httplib
-import urllib
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
+import http.client
+import urllib.request, urllib.parse, urllib.error
 import json
 import os
 
-from connection import *
-from auth import *
-from errors import *
-from models import *
+from .connection import *
+from .auth import *
+from .errors import *
+from .models import *
 
 class API(object):
     def __init__(self, host=os.environ.get('FASTLY_HOST', 'api.fastly.com'), secure=os.environ.get('FASTLY_SECURE', True), port=None, root='',

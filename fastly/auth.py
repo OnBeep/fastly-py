@@ -1,9 +1,12 @@
 """
 """
 
-from errors import *
+from future import standard_library
+standard_library.install_aliases()
+from builtins import object
+from .errors import *
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 class KeyAuthenticator(object):
     def __init__(self, key):
@@ -14,7 +17,7 @@ class KeyAuthenticator(object):
 
 class SessionAuthenticator(object):
     def __init__(self, conn, login, password):
-        body = urllib.urlencode({ 'user': login, 'password': password })
+        body = urllib.parse.urlencode({ 'user': login, 'password': password })
         resp, data = conn.request('POST', '/login', body)
         self.session_key = resp.getheader('Set-Cookie')
 
